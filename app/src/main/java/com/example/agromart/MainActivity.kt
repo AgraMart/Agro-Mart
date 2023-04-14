@@ -14,6 +14,7 @@ import com.example.agromart.ui.theme.AgroMartTheme
 import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreen
+import com.example.agromart.view.screen.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    SplashScreen()
                 }
             }
         }
