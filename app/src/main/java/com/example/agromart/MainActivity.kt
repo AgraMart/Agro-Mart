@@ -1,14 +1,17 @@
 package com.example.agromart
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.agromart.ui.theme.AgroMartTheme
+import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +24,7 @@ class MainActivity : ComponentActivity() {
         fun getInstance(): MainActivity? = mainActivity
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         mainActivity = this
         super.onCreate(savedInstanceState)
@@ -32,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(Modifier, navHostController)
+                    LoginScreen()
                 }
             }
         }
