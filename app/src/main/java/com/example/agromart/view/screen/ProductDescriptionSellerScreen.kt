@@ -1,8 +1,11 @@
 package com.example.agromart.view.screen
 
 import android.os.Build
+import android.widget.Button
+import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +18,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Calendar
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -119,9 +125,11 @@ fun ProductDescriptionSellerScreen(
                 ),
                 label = { Text("MFD") }
             )
-            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+//            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+
             OutlinedTextField(
-                value = "",
+
+                /*value = "",
                 onValueChange = {},
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
@@ -133,15 +141,42 @@ fun ProductDescriptionSellerScreen(
                 label = { Text("Expiry") },
                 trailingIcon = {
                     IconButton(onClick = {
-                        // Show the date picker dialog or open the calendar screen
+
+                        datePickerDialog.show
                     }) {
                         Icon(
-                            imageVector = Icons.Outlined.CalendarToday,
+                            imageVector = Icons.Outlined,
                             contentDescription = "Select a date"
                         )
                     }
-                },
-            )
+                },*/)
+            val year: Int
+            val month: Int
+            val day: Int
+
+            val calendar = Calendar.getInstance()
+            year = calendar.get(Calendar.YEAR)
+            month = calendar.get(Calendar.MONTH)
+            day = calendar.get(Calendar.DAY_OF_MONTH)
+            calendar.time = Date()
+
+            val date = remember { mutableStateOf("") }
+
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Text(text = "Selected Date: ${date.value}")
+                Spacer(modifier = Modifier.size(16.dp))
+                Button(onClick = { datePickerDialog.show() }) {
+                    Text(text = "Open Date Picker")
+
+                }
+            }
+
+        }
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -168,6 +203,4 @@ fun ProductDescriptionSellerScreen(
             )
         }
     }
-
-    DatePicker(state =)
 }
