@@ -52,4 +52,8 @@ class ProductViewModel @Inject constructor(val retrofit: Retrofit) : ViewModel()
     fun onProductRequestChanged(productRequest: ProductRequest) {
         _productRequest.value = productRequest
     }
+
+    fun sendOTP() {
+        TODO("Not yet implemented")
+    }
 }

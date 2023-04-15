@@ -152,7 +152,7 @@ fun BuyingScreen() {
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Green)
         ) {
-            Text(text = "Continue")
+            Text( text = "Continue" )
         }
 
     }

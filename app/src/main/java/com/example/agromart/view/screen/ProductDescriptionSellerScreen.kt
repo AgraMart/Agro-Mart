@@ -6,6 +6,7 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -197,6 +200,27 @@ fun ProductDescriptionSellerScreen(
                 ),
                 label = { Text("Price (INR)") }
             )
+
+            Spacer(modifier = Modifier.height(50.dp));
+
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(
+                    onClick = {
+
+                    },
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier
+                        .width(300.dp)
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Green)
+                ) {
+                    Text(
+                        text = "Submit",
+                        fontSize = 20.sp
+                    )
+                }
+            }
+
         }
     }
     if (showDatePicker) {
