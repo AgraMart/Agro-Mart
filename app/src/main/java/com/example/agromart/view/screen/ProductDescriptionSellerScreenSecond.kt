@@ -15,7 +15,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -51,6 +55,9 @@ fun ProductDescriptionSellerScreenSecond(
     modifier: Modifier,
     navHostController: NavHostController
 ) {
+    var showDatePicker by remember {
+        mutableStateOf(false)
+    }
     val datePickerState=rememberDatePickerState()
     Scaffold(topBar = {
         TopAppBar(title = { /*TODO*/ }, navigationIcon = {
@@ -107,7 +114,7 @@ fun ProductDescriptionSellerScreenSecond(
                 ),
                 label = { Text("Quantity") }
             )
-            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -121,7 +128,7 @@ fun ProductDescriptionSellerScreenSecond(
                 label = { Text("MFD") },
                 trailingIcon = {
                     IconButton(onClick = {
-                        // Show the date picker dialog or open the calendar screen
+                        showDatePicker = !showDatePicker
                     }) {
                         Icon(
                             imageVector = Icons.Outlined.CalendarToday,
@@ -130,6 +137,7 @@ fun ProductDescriptionSellerScreenSecond(
                     }
                 },
             )
+            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -153,6 +161,34 @@ fun ProductDescriptionSellerScreenSecond(
                     cursorColor = Green
                 ),
                 label = { Text("Price (INR)") }
+            )
+        }
+    }
+    if (showDatePicker) {
+        DatePickerDialog(onDismissRequest = { showDatePicker = !showDatePicker }, confirmButton = {
+            Button(
+                onClick = {
+                    datePickerState.selectedDateMillis
+                    showDatePicker = !showDatePicker
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Green)
+            ) {
+                Text("Select")
+            }
+        }, dismissButton = {
+            Button(
+                onClick = { showDatePicker = !showDatePicker },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
+            ) {
+                Text("Cancel")
+            }
+        }) {
+            DatePicker(
+                state = datePickerState,
+                colors = DatePickerDefaults.colors(
+                    selectedDayContainerColor = Green,
+                    todayDateBorderColor = Green
+                )
             )
         }
     }

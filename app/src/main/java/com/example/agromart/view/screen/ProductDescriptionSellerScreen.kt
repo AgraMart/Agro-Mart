@@ -138,7 +138,17 @@ fun ProductDescriptionSellerScreen(
                     focusedIndicatorColor = Green,
                     cursorColor = Green
                 ),
-                label = { Text("MFD") }
+                label = { Text("MFD") },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        showDatePicker = !showDatePicker
+                    }) {
+                        Icon(
+                            imageVector = Icons.Outlined.CalendarToday,
+                            contentDescription = "Select a date"
+                        )
+                    }
+                },
             )
             OutlinedTextField(
                 value = productRequest.expiry,
