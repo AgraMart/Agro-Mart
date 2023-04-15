@@ -1,8 +1,11 @@
 package com.example.agromart.view.screen
 
 import android.os.Build
+import android.widget.Button
+import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +18,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DatePickerFormatter
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,12 +42,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Calendar
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Green
 import java.time.LocalDate
@@ -51,10 +61,13 @@ fun ProductDescriptionSellerScreen(
     modifier: Modifier,
     navHostController: NavHostController
 ) {
-    val datePickerState=rememberDatePickerState()
+    var showDatePicker by remember {
+        mutableStateOf(false)
+    }
+    val datePickerState = rememberDatePickerState()
     Scaffold(topBar = {
-        TopAppBar(title = { /*TODO*/ }, navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+        TopAppBar(title = { }, navigationIcon = {
+            IconButton(onClick = { navHostController.popBackStack() }) {
                 Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back")
             }
         })
@@ -133,42 +146,16 @@ fun ProductDescriptionSellerScreen(
                 label = { Text("Expiry") },
                 trailingIcon = {
                     IconButton(onClick = {
-
-                        datePickerDialog.show
+                        showDatePicker = !showDatePicker
                     }) {
                         Icon(
-                            imageVector = Icons.Outlined,
+                            imageVector = Icons.Outlined.CalendarToday,
                             contentDescription = "Select a date"
                         )
                     }
-                },*/)
-            val year: Int
-            val month: Int
-            val day: Int
+                },
+            )
 
-            val calendar = Calendar.getInstance()
-            year = calendar.get(Calendar.YEAR)
-            month = calendar.get(Calendar.MONTH)
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            calendar.time = Date()
-
-            val date = remember { mutableStateOf("") }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Text(text = "Selected Date: ${date.value}")
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(onClick = { datePickerDialog.show() }) {
-                    Text(text = "Open Date Picker")
-
-                }
-            }
-
-        }
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -192,6 +179,34 @@ fun ProductDescriptionSellerScreen(
                     cursorColor = Green
                 ),
                 label = { Text("Price (INR)") }
+            )
+        }
+    }
+    if (showDatePicker) {
+        DatePickerDialog(onDismissRequest = { showDatePicker = !showDatePicker }, confirmButton = {
+            Button(
+                onClick = {
+                    datePickerState.selectedDateMillis
+                    showDatePicker = !showDatePicker
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Green)
+            ) {
+                Text("Select")
+            }
+        }, dismissButton = {
+            Button(
+                onClick = { showDatePicker = !showDatePicker },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
+            ) {
+                Text("Cancel")
+            }
+        }) {
+            DatePicker(
+                state = datePickerState,
+                colors = DatePickerDefaults.colors(
+                    selectedDayContainerColor = Green,
+                    todayDateBorderColor = Green
+                )
             )
         }
     }

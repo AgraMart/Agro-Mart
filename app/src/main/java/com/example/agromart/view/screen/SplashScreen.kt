@@ -87,7 +87,9 @@ fun SplashScreen(
                 })
         )
         delay(3000L)
-        navHostController.navigate(AgroMartScreen.BUY_SELL_SCREEN.name)
+        navHostController.navigate(
+            route = AgroMartScreen.BUY_SELL_SCREEN.name
+        )
     }
     Column(
         verticalArrangement = Arrangement.Center,

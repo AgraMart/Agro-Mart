@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Phone
+import androidx.compose.material.icons.rounded.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,7 +32,7 @@ import com.example.agromart.R
 import com.example.agromart.ui.theme.App_Gradient
 
 @Composable
-fun AgroItem() {
+fun AgroItem(onPlaceClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,16 +49,20 @@ fun AgroItem() {
                     .size(150.dp)
             )
             Column {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 20.dp)
+                ) {
                     Text(
                         "Wheat",
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
                     )
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = onPlaceClick) {
                         Icon(
-                            Icons.Rounded.Phone,
+                            Icons.Rounded.Place,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,13 +18,16 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,98 +46,110 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.agromart.ui.theme.Green
 import com.example.agromart.view.component.AgroMartTextField
+import com.example.agromart.viewmodel.LoginViewModel
 
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
-    Column(
-        modifier = Modifier.padding(20.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+fun LoginScreen(
+    modifier: Modifier,
+    navHostController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel()
+) {
+    val phoneNumber by viewModel.phoneNumber.collectAsState()
+    val otpField by viewModel.otpField.collectAsState()
+    Scaffold { it ->
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = CenterHorizontally
+        ) {
 
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-        var isdialog by remember { mutableStateOf(false) }
+            val username = remember { mutableStateOf(TextFieldValue()) }
+            val password = remember { mutableStateOf(TextFieldValue()) }
+            var isdialog by remember { mutableStateOf(false) }
 
-        Text(
-            text = "Login", style = TextStyle(
-                fontSize = 40.sp
+            Text(
+                text = "Login", style = TextStyle(
+                    fontSize = 40.sp
+                )
             )
-        )
 
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Enter Phone Number") },
-            value = username.value,
-            onValueChange = { username.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        /*TextField(
-            label = { Text(text = "Enter OTP") },
-            value = password.value,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })*/
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {
-                    isdialog = true
-                },
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Get OTP")
+            Spacer(modifier = Modifier.height(20.dp))
+            AgroMartTextField(phoneNumber, modifier, "Phone Number") {
+                viewModel.onPhoneNumberChanged(it)
             }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        if (isdialog) {
-            AlertDialog(
-                onDismissRequest = { /*TODO*/ },
-                modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .align(CenterHorizontally)
-                    .background(color = Color.White)
-                    .padding(10.dp)
-            ) {
-                Column(modifier = Modifier.background(color = Color.White), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Enter the OTP",
-                        modifier=Modifier
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(text = "OTP sent to your mobile no.")
-                    Spacer(modifier = Modifier.height(20.dp))
-                    AgroMartTextField()
+
+            Spacer(modifier = Modifier.height(20.dp))
+            /*TextField(
+                label = { Text(text = "Enter OTP") },
+                value = password.value,
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                onValueChange = { password.value = it })*/
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(
+                    onClick = {
+                        isdialog = true
+                        viewModel.sendOTP()
+                    },
+                    shape = RoundedCornerShape(50.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Green)
+                ) {
+                    Text(text = "Get OTP")
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            if (isdialog) {
+                AlertDialog(
+                    onDismissRequest = { /*TODO*/ },
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .align(CenterHorizontally)
+                        .background(color = Color.White)
+                        .padding(10.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.background(color = Color.White),
+                        horizontalAlignment = CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Enter the OTP",
+                            modifier = Modifier
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(text = "OTP sent to your mobile no.")
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        AgroMartTextField(otpField, modifier, "OTP") {
+                            viewModel.onOtpChanged(it)
+                        }
+                    }
+
+
                 }
 
 
             }
-
-
         }
     }
-
-    /*ClickableText(
-        text = AnnotatedString("Forgot password?"),
-        onClick = { },
-        style = TextStyle(
-            fontSize = 14.sp,
-            fontFamily = androidx.compose.ui.text.font.FontFamily.Default
-        )
-    )*/
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+//    LoginScreen()
 }

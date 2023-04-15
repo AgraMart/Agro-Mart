@@ -60,6 +60,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.agromart.R
 import com.example.agromart.model.Location
+import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.Dark_Green
 import com.example.agromart.ui.theme.Golden
 import com.example.agromart.viewmodel.HomeViewModel
@@ -141,7 +142,7 @@ fun MainScreen(
                 )
             }
         }, actions = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navHostController.navigate(AgroMartScreen.PROFILE_SCREEN.name) }) {
                 Icon(Icons.Rounded.Settings, tint = Color.LightGray, contentDescription = null)
             }
             IconButton(onClick = { /*TODO*/ }) {
@@ -257,6 +258,7 @@ fun MainScreen(
                             .height(180.dp)
                             .padding(end = 20.dp, start = 1.dp, bottom = 1.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                        onClick = { navHostController.navigate(AgroMartScreen.BUYER_ITEM_LIST_SCREEN.name) }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
