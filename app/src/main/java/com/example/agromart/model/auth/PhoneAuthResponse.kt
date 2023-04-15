@@ -9,6 +9,7 @@ data class PhoneAuthResponse(
 
 data class PhoneAuthVerifyResponse(
     val user: User = User(),
+    val token:String="",
     val auth: Boolean = false
 )
 

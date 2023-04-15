@@ -1,5 +1,7 @@
 package com.example.agromart.viewmodel
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,7 +27,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val retrofit: Retrofit
+    val retrofit: Retrofit,
+    val appContext: Application
 ) : ViewModel() {
     private val _phoneNumber: MutableStateFlow<String> = MutableStateFlow("")
     val phoneNumber: StateFlow<String> get() = _phoneNumber
@@ -35,6 +38,9 @@ class LoginViewModel @Inject constructor(
 
     private val _otpField: MutableStateFlow<String> = MutableStateFlow("")
     val otpField: StateFlow<String> get() = _otpField
+
+    private val _isLogged: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isLogged: StateFlow<Boolean> get() = _isLogged
 
     private val _hash: MutableStateFlow<String> = MutableStateFlow("")
     val hash: StateFlow<String> get() = _hash
@@ -51,6 +57,7 @@ class LoginViewModel @Inject constructor(
                         _otp.value = it.otp.toString()
                         _hash.value = it.hash
                     }
+
                 }
 
                 override fun onFailure(call: Call<PhoneAuthResponse>, t: Throwable) {
@@ -83,9 +90,15 @@ class LoginViewModel @Inject constructor(
                         call: Call<PhoneAuthVerifyResponse>,
                         response: Response<PhoneAuthVerifyResponse>
                     ) {
-                        (response.body() ?: PhoneAuthVerifyResponse()).let {
+                        val pref =
+                            appContext.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
 
+                        (response.body() ?: PhoneAuthVerifyResponse()).let {
+                            pref.edit().apply{
+                                putString("access_token",it.token)
+                            }.apply()
                         }
+                        _isLogged.value=true
                     }
 
                     override fun onFailure(call: Call<PhoneAuthVerifyResponse>, t: Throwable) {

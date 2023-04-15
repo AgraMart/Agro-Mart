@@ -48,9 +48,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.Green
 import com.example.agromart.view.component.AgroMartTextField
 import com.example.agromart.viewmodel.LoginViewModel
+import com.example.thecr.view.OtpTextField
 
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -63,6 +65,12 @@ fun LoginScreen(
 ) {
     val phoneNumber by viewModel.phoneNumber.collectAsState()
     val otpField by viewModel.otpField.collectAsState()
+    val isLogged by viewModel.isLogged.collectAsState()
+    var isdialog by remember { mutableStateOf(false) }
+    if (isLogged) {
+        isdialog = false
+        navHostController.navigate(AgroMartScreen.PROFILE_SCREEN.name)
+    }
     Scaffold { it ->
         Column(
             modifier = Modifier
@@ -71,11 +79,6 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = CenterHorizontally
         ) {
-
-            val username = remember { mutableStateOf(TextFieldValue()) }
-            val password = remember { mutableStateOf(TextFieldValue()) }
-            var isdialog by remember { mutableStateOf(false) }
-
             Text(
                 text = "Login", style = TextStyle(
                     fontSize = 40.sp
@@ -87,8 +90,7 @@ fun LoginScreen(
                 viewModel.onPhoneNumberChanged(it)
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-            /*TextField(
+            Spacer(modifier = Modifier.height(20.dp))/*TextField(
                 label = { Text(text = "Enter OTP") },
                 value = password.value,
                 visualTransformation = PasswordVisualTransformation(),
@@ -114,7 +116,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
             if (isdialog) {
                 AlertDialog(
-                    onDismissRequest = { /*TODO*/ },
+                    onDismissRequest = { isdialog = false },
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
                         .align(CenterHorizontally)
@@ -126,22 +128,18 @@ fun LoginScreen(
                         horizontalAlignment = CenterHorizontally
                     ) {
                         Text(
-                            text = "Enter the OTP",
-                            modifier = Modifier
+                            text = "Enter the OTP", modifier = Modifier
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(text = "OTP sent to your mobile no.")
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        AgroMartTextField(otpField, modifier, "OTP") {
-                            viewModel.onOtpChanged(it)
-                        }
+                        OtpTextField(otpText = otpField,
+                            onOtpTextChange = { value, otpInputFilled ->
+                                viewModel.onOtpChanged(value)
+                            })
                     }
-
-
                 }
-
-
             }
         }
     }

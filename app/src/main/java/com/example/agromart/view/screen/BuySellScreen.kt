@@ -62,7 +62,7 @@ fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(80.dp))
 
         Box(modifier = Modifier
-            .clickable { navHostController.navigate(AgroMartScreen.BUYER_ITEM_LIST_SCREEN.name) }
+            .clickable { navHostController.navigate(AgroMartScreen.CHAT_BOT_SCREEN.name) }
             .height(250.dp)
             .width(250.dp)
             .padding(5.dp)
@@ -91,7 +91,7 @@ fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Box(modifier = Modifier
-            .clickable {navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)}
+            .clickable { navHostController.navigate(AgroMartScreen.PROFILE_SCREEN.name) }
             .height(250.dp)
             .width(250.dp)
             .padding(5.dp)

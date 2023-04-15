@@ -57,7 +57,7 @@ fun Category(modifier: Modifier, navHostController: NavHostController) {
         Row {
 
             Box(modifier = Modifier
-                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SCREEN.name) }
+                .clickable { navHostController.navigate("${AgroMartScreen.PRODUCT_DESCRIPTION_SCREEN.name}/Seeds") }
                 .height(160.dp)
                 .width(160.dp)
                 .padding(5.dp)
@@ -84,7 +84,7 @@ fun Category(modifier: Modifier, navHostController: NavHostController) {
             }
 
             Box(modifier = Modifier
-                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SCREEN.name) }
+                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SCREEN.name+"/Fertilizers") }
                 .height(160.dp)
                 .width(160.dp)
                 .padding(5.dp)
@@ -117,7 +117,7 @@ fun Category(modifier: Modifier, navHostController: NavHostController) {
         Row {
 
             Box(modifier = Modifier
-                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name) }
+                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name+"/Tools") }
                 .height(160.dp)
                 .width(160.dp)
                 .padding(5.dp)
@@ -144,7 +144,7 @@ fun Category(modifier: Modifier, navHostController: NavHostController) {
             }
 
             Box(modifier = Modifier
-                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name) }
+                .clickable { navHostController.navigate(AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name+"/Gears") }
                 .height(160.dp)
                 .width(160.dp)
                 .padding(5.dp)

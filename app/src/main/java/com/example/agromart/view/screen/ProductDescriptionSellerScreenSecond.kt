@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
@@ -33,6 +34,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,30 +44,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Green
+import com.example.agromart.viewmodel.ProductViewModel
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDescriptionSellerScreenSecond(
     modifier: Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    categoryType: String,
+    viewModel: ProductViewModel = hiltViewModel()
 ) {
+    val productRequest by viewModel.productRequest.collectAsState()
     var showDatePicker by remember {
         mutableStateOf(false)
     }
-    val datePickerState=rememberDatePickerState()
+    LaunchedEffect(key1 = Unit, block = {
+        viewModel.onProductRequestChanged(productRequest.copy(productType = categoryType))
+    })
+    val datePickerState = rememberDatePickerState()
     Scaffold(topBar = {
         TopAppBar(title = { /*TODO*/ }, navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navHostController.popBackStack() }) {
                 Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back")
             }
         })
@@ -94,8 +108,8 @@ fun ProductDescriptionSellerScreenSecond(
             )
             Spacer(modifier = Modifier.height(50.dp));
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = productRequest.name,
+                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(name = it)) },
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
@@ -106,8 +120,8 @@ fun ProductDescriptionSellerScreenSecond(
                 label = { Text("Product Name") }
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = productRequest.quantity.toString(),
+                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(quantity = it.toLong())) },
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
@@ -115,12 +129,12 @@ fun ProductDescriptionSellerScreenSecond(
                     focusedIndicatorColor = Green,
                     cursorColor = Green
                 ),
-                label = { Text("Quantity") }
+                label = { Text("Quantity") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             )
-
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = productRequest.mfd,
+                onValueChange = { },
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
@@ -140,10 +154,9 @@ fun ProductDescriptionSellerScreenSecond(
                     }
                 },
             )
-            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = productRequest.description,
+                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(description = it)) },
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
@@ -154,8 +167,8 @@ fun ProductDescriptionSellerScreenSecond(
                 label = { Text("Description") }
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = productRequest.price.toString(),
+                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(price = it.toLong())) },
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
@@ -163,7 +176,46 @@ fun ProductDescriptionSellerScreenSecond(
                     focusedIndicatorColor = Green,
                     cursorColor = Green
                 ),
-                label = { Text("Price (INR)") }
+                label = { Text("Price (INR)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+        }
+    }
+    if (showDatePicker) {
+        DatePickerDialog(onDismissRequest = { showDatePicker = !showDatePicker }, confirmButton = {
+            Button(
+                onClick = {
+                    val formatter = SimpleDateFormat("dd/MM/yyyy")
+                    viewModel.onProductRequestChanged(
+                        productRequest.copy(
+                            mfd = formatter.format(
+                                Date(datePickerState.selectedDateMillis!!)
+                            )
+                        )
+                    )
+                    showDatePicker = !showDatePicker
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Green)
+            ) {
+                Text("Select")
+            }
+        }, dismissButton = {
+            Button(
+                onClick = { showDatePicker = !showDatePicker },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Black
+                )
+            ) {
+                Text("Cancel")
+            }
+        }) {
+            DatePicker(
+                state = datePickerState,
+                colors = DatePickerDefaults.colors(
+                    selectedDayContainerColor = Green,
+                    todayDateBorderColor = Green
+                )
             )
 
             Spacer(modifier = Modifier.height(50.dp));
@@ -185,34 +237,6 @@ fun ProductDescriptionSellerScreenSecond(
                     )
                 }
             }
-        }
-    }
-    if (showDatePicker) {
-        DatePickerDialog(onDismissRequest = { showDatePicker = !showDatePicker }, confirmButton = {
-            Button(
-                onClick = {
-                    datePickerState.selectedDateMillis
-                    showDatePicker = !showDatePicker
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = Green)
-            ) {
-                Text("Select")
-            }
-        }, dismissButton = {
-            Button(
-                onClick = { showDatePicker = !showDatePicker },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
-            ) {
-                Text("Cancel")
-            }
-        }) {
-            DatePicker(
-                state = datePickerState,
-                colors = DatePickerDefaults.colors(
-                    selectedDayContainerColor = Green,
-                    todayDateBorderColor = Green
-                )
-            )
         }
     }
 }

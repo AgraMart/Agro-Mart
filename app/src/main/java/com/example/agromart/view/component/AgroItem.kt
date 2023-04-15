@@ -31,11 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.agromart.R
+import com.example.agromart.model.product.Datum
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.view.screen.ListOfProd
 
 @Composable
-fun AgroItem(onPlaceClick: () -> Unit) {
+fun AgroItem(data: Datum, onPlaceClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,7 +61,7 @@ fun AgroItem(onPlaceClick: () -> Unit) {
                         .padding(end = 20.dp)
                 ) {
                     Text(
-                        "Wheat",
+                        data.name,
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
                     )
                     IconButton(onClick = onPlaceClick) {
@@ -79,12 +80,12 @@ fun AgroItem(onPlaceClick: () -> Unit) {
                 Row {
                     Column {
                         Text("Quantity")
-                        Text("120")
+                        Text(data.quantity.toString())
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text("Price")
-                        Text("120")
+                        Text(data.price.toString())
                     }
                 }
             }

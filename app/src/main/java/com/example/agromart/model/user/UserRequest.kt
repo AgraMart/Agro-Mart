@@ -8,3 +8,7 @@ data class UserRequest(
     val dob:String="",
     val userType:String="",
 )
+
+data class DataRe(
+    val data:UserRequest=UserRequest()
+)

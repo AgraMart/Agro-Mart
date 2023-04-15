@@ -13,7 +13,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://9ce-2401-4900-5d34-d941-e806-33a2-54b1-5bf9.ngrok-free.app/")
+            .baseUrl("https://9ce4-2401-4900-5d34-d941-e806-33a2-54b1-5bf9.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -33,7 +33,8 @@ class ProductViewModel @Inject constructor(val retrofit: Retrofit) : ViewModel()
     fun addProduct() {
         val api = retrofit.create(CrudApiInterface::class.java)
         viewModelScope.launch {
-            val response = api.addProduct(productRequest.value)
+
+            val response = api.addProduct(productRequest.value,getHeaderMap(""))
             response.enqueue(object : Callback<ProductResponse> {
                 override fun onResponse(
                     call: Call<ProductResponse>,
@@ -53,7 +54,9 @@ class ProductViewModel @Inject constructor(val retrofit: Retrofit) : ViewModel()
         _productRequest.value = productRequest
     }
 
-    fun sendOTP() {
-        TODO("Not yet implemented")
+    fun getHeaderMap(access_token: String): Map<String, String> {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = "Bearer $access_token"
+        return headerMap
     }
 }
