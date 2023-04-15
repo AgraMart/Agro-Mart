@@ -27,10 +27,15 @@ interface CrudApiInterface {
     ): Call<ProductResponse>
 
     @GET("showAllItems")
-    fun showAllItems(): Response<ItemListResponse>
+    suspend fun showAllItems(): Response<ItemListResponse>
 
     @GET("getProfile")
     fun showAllItems(
+        @HeaderMap header: Map<String, String>
+    ): Response<ItemListResponse>
+
+    @GET("news")
+    fun getNews(
         @HeaderMap header: Map<String, String>
     ): Response<ItemListResponse>
 }

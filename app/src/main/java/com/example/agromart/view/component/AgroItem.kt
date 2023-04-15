@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Phone
 import androidx.compose.material.icons.rounded.Place
+import androidx.compose.material.icons.rounded.ShoppingCartCheckout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -66,7 +67,7 @@ fun AgroItem(data: Datum, onPlaceClick: () -> Unit) {
                     )
                     IconButton(onClick = onPlaceClick) {
                         Icon(
-                            Icons.Rounded.Place,
+                            Icons.Rounded.ShoppingCartCheckout,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier

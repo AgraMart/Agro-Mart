@@ -282,18 +282,19 @@ fun MainScreen(
                             .height(180.dp)
                             .padding(start = 20.dp, end = 1.dp, top = 1.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                        onClick = { navHostController.navigate(AgroMartScreen.BLOG_SCREEN.name) }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                             modifier = modifier.fillMaxSize()
                         ) {
-                            Icon(
-                                Icons.Rounded.Warning,
+                            Image(
+                                painterResource(id = R.drawable.newspaper),
                                 contentDescription = null,
                                 modifier.size(100.dp)
                             )
-                            Text(text = "My Farm", style = MaterialTheme.typography.titleLarge)
+                            Text(text = "Blog", style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }
@@ -305,18 +306,19 @@ fun MainScreen(
                             .height(180.dp)
                             .padding(end = 20.dp, start = 1.dp, top = 1.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                        onClick = { navHostController.navigate(AgroMartScreen.CHAT_BOT_SCREEN.name) }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                             modifier = modifier.fillMaxSize()
                         ) {
-                            Icon(
-                                Icons.Rounded.Warning,
+                            Image(
+                                painterResource(id = R.drawable.robot),
                                 contentDescription = null,
                                 modifier.size(100.dp)
                             )
-                            Text(text = "My Farm", style = MaterialTheme.typography.titleLarge)
+                            Text(text = "Chatbot", style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }

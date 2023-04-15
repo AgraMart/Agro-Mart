@@ -100,7 +100,7 @@ fun BuyerItemListScreen(
                         OutlinedButton(
                             onClick = {
                                 seedsButton = false
-                                allButton = false
+                                allButton = true
                                 gearsButton = false
                                 fertillizerButton = false
                                 toolsButton = false
@@ -144,7 +144,13 @@ fun BuyerItemListScreen(
 
                     item {
                         OutlinedButton(
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                seedsButton = false
+                                allButton = false
+                                gearsButton = false
+                                fertillizerButton = true
+                                toolsButton = false
+                            },
                             shape = RoundedCornerShape(10.dp),
                             modifier = modifier.padding(10.dp),
                             colors = if (fertillizerButton) ButtonDefaults.buttonColors(
@@ -161,7 +167,13 @@ fun BuyerItemListScreen(
 
                     item {
                         OutlinedButton(
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                seedsButton = false
+                                allButton = false
+                                gearsButton = false
+                                fertillizerButton = false
+                                toolsButton = true
+                            },
                             shape = RoundedCornerShape(10.dp),
                             modifier = modifier.padding(10.dp),
                             colors = if (toolsButton) ButtonDefaults.buttonColors(
@@ -178,7 +190,13 @@ fun BuyerItemListScreen(
 
                     item {
                         OutlinedButton(
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                seedsButton = false
+                                allButton = false
+                                gearsButton = true
+                                fertillizerButton = false
+                                toolsButton = false
+                            },
                             shape = RoundedCornerShape(10.dp),
                             modifier = modifier.padding(10.dp),
                             colors = if (gearsButton) ButtonDefaults.buttonColors(
@@ -194,8 +212,29 @@ fun BuyerItemListScreen(
                     }
                 }
             }
-            items(itemList.data) {
-                AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+            if (seedsButton)
+                items(itemList.data.filter { it.productType == "Seeds" }) {
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                }
+            if (gearsButton) {
+                items(itemList.data.filter { it.productType == "Gear" }) {
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                }
+            }
+            if (fertillizerButton) {
+                items(itemList.data.filter { it.productType == "fertillizer" }) {
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                }
+            }
+            if (toolsButton) {
+                items(itemList.data.filter { it.productType == "tools" }) {
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                }
+            }
+            if (allButton) {
+                items(itemList.data) {
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                }
             }
         }
     }
