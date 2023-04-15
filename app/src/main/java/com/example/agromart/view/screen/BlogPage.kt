@@ -36,14 +36,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.agromart.R
 import com.example.agromart.ui.theme.Green
+import com.example.agromart.viewmodel.BlogViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BlogPage(modifier: Modifier, navHostController: NavController) {
+fun BlogPage(
+    modifier: Modifier,
+    navHostController: NavController,
+    viewModel: BlogViewModel = hiltViewModel()
+) {
     Scaffold(topBar = {
         TopAppBar(
             title = {

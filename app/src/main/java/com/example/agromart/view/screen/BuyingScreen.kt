@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 //import androidx.compose.foundation.layout.RowScopeInstance.align
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,7 +37,7 @@ import com.example.agromart.ui.theme.Green
 @Composable
 fun BuyingScreen(modifier: Modifier, navHostController: NavHostController) {
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.padding(20.dp).fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -75,7 +76,7 @@ fun BuyingScreen(modifier: Modifier, navHostController: NavHostController) {
                 fontSize = 15.sp,
                 textAlign = TextAlign.Left
             );
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 var count by remember { mutableStateOf(500) }
 
                 Image(
@@ -140,10 +141,4 @@ fun BuyingScreen(modifier: Modifier, navHostController: NavHostController) {
 
     }
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BuyingScreenPreview() {
-    BuyingScreen(modifier, navHostController)
 }

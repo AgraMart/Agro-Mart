@@ -1,5 +1,6 @@
 package com.example.agromart.network
 
+import com.example.agromart.model.news.NewsResponse
 import com.example.agromart.model.product.ItemListResponse
 import com.example.agromart.model.product.ProductRequest
 import com.example.agromart.model.product.ProductResponse
@@ -36,6 +37,6 @@ interface CrudApiInterface {
 
     @GET("news")
     fun getNews(
-        @HeaderMap header: Map<String, String>
-    ): Response<ItemListResponse>
+    ): Response<NewsResponse>
+
 }

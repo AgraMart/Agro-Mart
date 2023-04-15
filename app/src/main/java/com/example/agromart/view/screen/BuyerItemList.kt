@@ -218,22 +218,22 @@ fun BuyerItemListScreen(
                 }
             if (gearsButton) {
                 items(itemList.data.filter { it.productType == "Gear" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
                 }
             }
             if (fertillizerButton) {
                 items(itemList.data.filter { it.productType == "fertillizer" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
                 }
             }
             if (toolsButton) {
                 items(itemList.data.filter { it.productType == "tools" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
                 }
             }
             if (allButton) {
                 items(itemList.data) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.NEARBY_SELLER_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
                 }
             }
         }
