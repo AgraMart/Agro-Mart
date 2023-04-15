@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Phone
 import androidx.compose.material.icons.rounded.Place
 import androidx.compose.material3.Card
@@ -35,7 +36,7 @@ import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.view.screen.ListOfProd
 
 @Composable
-fun AgroItem(onPlaceClick: () -> Unit) {
+fun EditCard(onPlaceClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,7 +66,7 @@ fun AgroItem(onPlaceClick: () -> Unit) {
                     )
                     IconButton(onClick = onPlaceClick) {
                         Icon(
-                            Icons.Rounded.Place,
+                            Icons.Rounded.Create,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier

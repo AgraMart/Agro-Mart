@@ -68,5 +68,8 @@ fun AgroMartNavHost(
         composable(route = AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name) {
             ProductDescriptionSellerScreenSecond(modifier = modifier, navHostController = navHostController)
         }
+        composable(route = AgroMartScreen.LIST_OF_PROD.name) {
+            ProductDescriptionSellerScreenSecond(modifier = modifier, navHostController = navHostController)
+        }
     }
 }
