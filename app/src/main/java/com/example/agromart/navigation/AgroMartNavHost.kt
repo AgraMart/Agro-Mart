@@ -9,7 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.agromart.view.screen.BuySellScreen
 import com.example.agromart.view.screen.BuyerItemList
+import com.example.agromart.view.screen.Category
 import com.example.agromart.view.screen.MainScreen
+import com.example.agromart.view.screen.ProductDescriptionSellerScreen
 import com.example.agromart.view.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -23,7 +25,7 @@ fun AgroMartNavHost(
             MainScreen(modifier = modifier, navHostController = navHostController)
         }
         composable(route = AgroMartScreen.PRODUCT_DESCRIPTION_SCREEN.name) {
-            MainScreen(modifier = modifier, navHostController = navHostController)
+            ProductDescriptionSellerScreen(modifier = modifier, navHostController = navHostController)
         }
         composable(route = AgroMartScreen.SPLASH_SCREEN.name) {
             SplashScreen(modifier = modifier, navHostController = navHostController)
@@ -34,5 +36,9 @@ fun AgroMartNavHost(
         composable(route = AgroMartScreen.BUYER_ITEM_LIST_SCREEN.name) {
             BuyerItemList(modifier = modifier, navHostController = navHostController)
         }
+        composable(route = AgroMartScreen.CATEGORY_SCREEN.name) {
+            Category(modifier = modifier, navHostController = navHostController)
+        }
+
     }
 }

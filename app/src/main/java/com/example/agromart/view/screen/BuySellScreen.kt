@@ -51,7 +51,7 @@ fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { },
+            onClick = {navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)},
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
                 .fillMaxWidth(),

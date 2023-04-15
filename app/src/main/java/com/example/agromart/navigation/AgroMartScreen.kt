@@ -6,4 +6,5 @@ enum class AgroMartScreen {
     SPLASH_SCREEN,
     BUY_SELL_SCREEN,
     BUYER_ITEM_LIST_SCREEN,
+    CATEGORY_SCREEN,
 }

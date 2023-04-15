@@ -1,7 +1,6 @@
 package com.example.agromart.view.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,31 +9,31 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.agromart.ui.theme.App_Gradient
-import com.example.agromart.ui.theme.Dark_Green
 import com.example.agromart.ui.theme.Green
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDescriptionSellerScreen(modifier: Modifier, navController: NavController) {
+fun ProductDescriptionSellerScreen(
+    modifier: Modifier,
+    navHostController: NavHostController
+) {
     Scaffold(topBar = {
         TopAppBar(title = { /*TODO*/ }, navigationIcon = {
             IconButton(onClick = { /*TODO*/ }) {
