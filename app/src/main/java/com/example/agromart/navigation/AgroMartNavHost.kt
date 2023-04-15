@@ -14,6 +14,7 @@ import com.example.agromart.view.screen.BuyerItemListScreen
 import com.example.agromart.view.screen.Category
 import com.example.agromart.view.screen.ChatbotScreen
 import com.example.agromart.view.screen.DeliveryAgentTrackingScreen
+import com.example.agromart.view.screen.ListOfProd
 import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.NearbySellerScreen
@@ -90,7 +91,7 @@ fun AgroMartNavHost(
             )
         }
         composable(route = AgroMartScreen.LIST_OF_PROD.name) {
-            ProductDescriptionSellerScreenSecond(modifier = modifier, navHostController = navHostController)
+            ListOfProd(modifier = modifier, navHostController = navHostController)
         }
     }
 }

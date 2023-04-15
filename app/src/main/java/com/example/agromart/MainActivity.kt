@@ -16,6 +16,7 @@ import com.example.agromart.view.screen.DeliveryAgentTrackingScreen
 import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreen
+import com.example.agromart.view.screen.SalesPageScreen
 import com.example.agromart.view.screen.SellerProductView
 import com.example.agromart.view.screen.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
