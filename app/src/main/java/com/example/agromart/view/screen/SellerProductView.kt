@@ -4,7 +4,9 @@ import android.os.Build
 import android.widget.Button
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +35,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
@@ -47,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key.Companion.Calendar
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,6 +59,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.agromart.R
 import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Green
@@ -90,116 +95,80 @@ fun SellerProductView(
                 .padding(it)
                 .fillMaxSize()
         ) {
-            Icon(
-                imageVector = Icons.Rounded.Person,
-                contentDescription = "Image",
-                modifier
-                    .clip(CircleShape)
-                    .background(
-                        App_Gradient
-                    )
-                    .padding(30.dp)
-                    .size(60.dp),
-                tint = Color.White
+            Image(
+                painter = painterResource(id = R.drawable.editinfo),
+                contentDescription = "editInfo",
+                modifier = Modifier
+                    .height(100.dp)
+                    .padding(20.dp, 5.dp)
+                    .width(100.dp),
+                alignment = Alignment.Center
             );
             Spacer(modifier = Modifier.height(15.dp));
             Text(
-                text = "Product Description",
+                text = "Edit Product",
                 fontSize = 20.sp
             )
             Spacer(modifier = Modifier.height(50.dp));
-            OutlinedTextField(
-                value = productRequest.name,
-                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(name = it)) },
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("Product Name") }
-            )
-            OutlinedTextField(
-                value = productRequest.quantity.toString(),
-                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(quantity = it.toLong())) },
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("Quantity") }
-            )
-            OutlinedTextField(
-                value = productRequest.mfd,
-                onValueChange = {},
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("MFD") },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        showDatePicker = !showDatePicker
-                    }) {
-                        Icon(
-                            imageVector = Icons.Outlined.CalendarToday,
-                            contentDescription = "Select a date"
-                        )
-                    }
-                },
-            )
-            OutlinedTextField(
-                value = productRequest.expiry,
-                onValueChange = {},
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("Expiry") },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        showDatePicker = !showDatePicker
-                    }) {
-                        Icon(
-                            imageVector = Icons.Outlined.CalendarToday,
-                            contentDescription = "Select a date"
-                        )
-                    }
-                },
+
+            var nameDefault by remember { mutableStateOf("Default text") }
+
+            TextField(
+                value = nameDefault,
+                onValueChange = { nameDefault = it },
+                label = { Text("Name") },
+                modifier = Modifier
+                    .background(Color.White)
+                    .border(0.dp, Color.White, RoundedCornerShape(8.dp))
+                    .padding(10.dp)
             )
 
-            OutlinedTextField(
-                value = productRequest.description,
-                onValueChange = {viewModel.onProductRequestChanged(productRequest.copy(description = it))},
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("Description") }
+            var quantityDefault by remember { mutableStateOf("Default text") }
+
+            TextField(
+                value = quantityDefault,
+                onValueChange = { quantityDefault = it },
+                label = { Text("Quantity") },
+                modifier = Modifier
+                    .background(Color.White)
+                    .border(0.dp, Color.White, RoundedCornerShape(8.dp))
+                    .padding(10.dp)
             )
-            OutlinedTextField(
-                value = productRequest.price.toString(),
-                onValueChange = { viewModel.onProductRequestChanged(productRequest.copy(price = it.toLong())) },
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("Price (INR)") }
+
+            var mfdDefault by remember { mutableStateOf("Default text") }
+
+            TextField(
+                value = mfdDefault,
+                onValueChange = { mfdDefault = it },
+                label = { Text("MFD") },
+                modifier = Modifier
+                    .background(Color.White)
+                    .border(0.dp, Color.White, RoundedCornerShape(8.dp))
+                    .padding(10.dp)
+            )
+
+            var expiryDefault by remember { mutableStateOf("Default text") }
+
+            TextField(
+                value = expiryDefault,
+                onValueChange = { expiryDefault = it },
+                label = { Text("Expiry") },
+                modifier = Modifier
+                    .background(Color.White)
+                    .border(0.dp, Color.White, RoundedCornerShape(8.dp))
+                    .padding(10.dp)
+            )
+
+            var descDefault by remember { mutableStateOf("Default text") }
+
+            TextField(
+                value = descDefault,
+                onValueChange = { descDefault = it },
+                label = { Text("Description") },
+                modifier = Modifier
+                    .background(Color.White)
+                    .border(0.dp, Color.White, RoundedCornerShape(8.dp))
+                    .padding(10.dp)
             )
 
             Spacer(modifier = Modifier.height(50.dp));

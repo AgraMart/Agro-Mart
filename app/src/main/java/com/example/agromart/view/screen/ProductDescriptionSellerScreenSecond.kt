@@ -175,7 +175,7 @@ fun ProductDescriptionSellerScreenSecond(
                     },
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .width(300.dp)
+                        .width(200.dp)
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Green)
                 ) {
