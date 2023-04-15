@@ -330,6 +330,7 @@ fun MainScreen(
     }
 }
 
+
 private fun startLocationUpdates(context: Context) {
     locationCallback?.let {
         val locationRequest =

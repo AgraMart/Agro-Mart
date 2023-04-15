@@ -47,7 +47,7 @@ import java.time.LocalDate
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDescriptionSellerScreen(
+fun ProductDescriptionSellerScreenSecond(
     modifier: Modifier,
     navHostController: NavHostController
 ) {
@@ -107,18 +107,6 @@ fun ProductDescriptionSellerScreen(
                 ),
                 label = { Text("Quantity") }
             )
-            OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Black,
-                    focusedIndicatorColor = Green,
-                    cursorColor = Green
-                ),
-                label = { Text("MFD") }
-            )
             var selectedDate by remember { mutableStateOf(LocalDate.now()) }
             OutlinedTextField(
                 value = "",
@@ -130,45 +118,18 @@ fun ProductDescriptionSellerScreen(
                     focusedIndicatorColor = Green,
                     cursorColor = Green
                 ),
-                label = { Text("Expiry") },
+                label = { Text("MFD") },
                 trailingIcon = {
                     IconButton(onClick = {
-
-                        datePickerDialog.show
+                        // Show the date picker dialog or open the calendar screen
                     }) {
                         Icon(
-                            imageVector = Icons.Outlined,
+                            imageVector = Icons.Outlined.CalendarToday,
                             contentDescription = "Select a date"
                         )
                     }
-                },*/)
-            val year: Int
-            val month: Int
-            val day: Int
-
-            val calendar = Calendar.getInstance()
-            year = calendar.get(Calendar.YEAR)
-            month = calendar.get(Calendar.MONTH)
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            calendar.time = Date()
-
-            val date = remember { mutableStateOf("") }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Text(text = "Selected Date: ${date.value}")
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(onClick = { datePickerDialog.show() }) {
-                    Text(text = "Open Date Picker")
-
-                }
-            }
-
-        }
+                },
+            )
             OutlinedTextField(
                 value = "",
                 onValueChange = {},

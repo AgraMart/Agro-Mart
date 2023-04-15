@@ -12,6 +12,7 @@ import com.example.agromart.view.screen.BuyerItemList
 import com.example.agromart.view.screen.Category
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreen
+import com.example.agromart.view.screen.ProductDescriptionSellerScreenSecond
 import com.example.agromart.view.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -39,6 +40,8 @@ fun AgroMartNavHost(
         composable(route = AgroMartScreen.CATEGORY_SCREEN.name) {
             Category(modifier = modifier, navHostController = navHostController)
         }
-
+        composable(route = AgroMartScreen.PRODUCT_DESCRIPTION_SELLER_SCREEN_SECOND.name) {
+            ProductDescriptionSellerScreenSecond(modifier = modifier, navHostController = navHostController)
+        }
     }
 }
