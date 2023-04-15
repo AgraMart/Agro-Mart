@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.agromart.navigation.AgroMartNavHost
 import com.example.agromart.ui.theme.AgroMartTheme
 import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SplashScreen()
+                    AgroMartNavHost(navHostController = navHostController, modifier = Modifier)
                 }
             }
         }

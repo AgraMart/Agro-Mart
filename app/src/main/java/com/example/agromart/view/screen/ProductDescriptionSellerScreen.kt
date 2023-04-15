@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Dark_Green
 import com.example.agromart.ui.theme.Green
 
@@ -53,9 +54,7 @@ fun ProductDescriptionSellerScreen(modifier: Modifier, navController: NavControl
                 modifier
                     .clip(CircleShape)
                     .background(
-                        Brush.verticalGradient(
-                            colors = listOf(com.example.agromart.ui.theme.Green, Dark_Green),
-                        )
+                        App_Gradient
                     )
                     .padding(30.dp)
                     .size(60.dp),

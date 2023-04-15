@@ -71,16 +71,16 @@ fun Category(){
             Box(modifier = Modifier.height(80.dp).width(80.dp).padding(5.dp).background(Color.LightGray, shape = RoundedCornerShape(10.dp)).padding(0.dp, 5.dp)) {
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.seeds),
-                        contentDescription = "Seeds",
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .height(50.dp)
-                            .padding(20.dp, 1.dp)
-                            .width(50.dp),
-                        alignment = Alignment.Center
-                    );
+//                    Image(
+//                        painter = painterResource(id = R.drawable.seeds),
+//                        contentDescription = "Seeds",
+//                        modifier = Modifier
+//                            .clip(CircleShape)
+//                            .height(50.dp)
+//                            .padding(20.dp, 1.dp)
+//                            .width(50.dp),
+//                        alignment = Alignment.Center
+//                    );
                     Text(
                         text = "Seeds",
                         fontSize = 10.sp,
@@ -93,16 +93,16 @@ fun Category(){
             Box (modifier = Modifier.height(80.dp).width(80.dp).padding(5.dp).background(Color.LightGray, shape = RoundedCornerShape(10.dp)).padding(5.dp, 0.dp)){
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.fertilizers),
-                        contentDescription = "Fertilizers",
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .height(50.dp)
-                            .padding(20.dp, 1.dp)
-                            .width(50.dp),
-                        alignment = Alignment.Center
-                    );
+//                    Image(
+//                        painter = painterResource(id = R.drawable.fertilizers),
+//                        contentDescription = "Fertilizers",
+//                        modifier = Modifier
+//                            .clip(CircleShape)
+//                            .height(50.dp)
+//                            .padding(20.dp, 1.dp)
+//                            .width(50.dp),
+//                        alignment = Alignment.Center
+//                    );
                     Text(
                         text = "Fertilizers",
                         fontSize = 10.sp,
@@ -121,16 +121,16 @@ fun Category(){
             Box(modifier = Modifier.height(80.dp).width(80.dp).padding(5.dp).background(Color.LightGray, shape = RoundedCornerShape(10.dp))) {
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.tools),
-                        contentDescription = "Tools",
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .height(50.dp)
-                            .padding(20.dp, 1.dp)
-                            .width(50.dp),
-                        alignment = Alignment.Center
-                    );
+//                    Image(
+//                        painter = painterResource(id = R.drawable.tools),
+//                        contentDescription = "Tools",
+//                        modifier = Modifier
+//                            .clip(CircleShape)
+//                            .height(50.dp)
+//                            .padding(20.dp, 1.dp)
+//                            .width(50.dp),
+//                        alignment = Alignment.Center
+//                    );
                     Text(
                         text = "Tools",
                         fontSize = 10.sp,
@@ -143,16 +143,16 @@ fun Category(){
             Box(modifier = Modifier.height(80.dp).width(80.dp).padding(5.dp).background(Color.LightGray, shape = RoundedCornerShape(10.dp)).padding(5.dp, 0.dp)) {
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.gears),
-                        contentDescription = "Protective Gears",
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .height(50.dp)
-                            .padding(20.dp, 1.dp)
-                            .width(50.dp),
-                        alignment = Alignment.Center
-                    );
+//                    Image(
+//                        painter = painterResource(id = R.drawable.gears),
+//                        contentDescription = "Protective Gears",
+//                        modifier = Modifier
+//                            .clip(CircleShape)
+//                            .height(50.dp)
+//                            .padding(20.dp, 1.dp)
+//                            .width(50.dp),
+//                        alignment = Alignment.Center
+//                    );
                     Text(
                         text = "Protective \n Gears",
                         fontSize = 10.sp,

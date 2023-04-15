@@ -1,8 +1,6 @@
 package com.example.agromart.viewmodel
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.agromart.model.Location
@@ -17,7 +15,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +25,9 @@ class HomeViewModel @Inject constructor(
     private val _weather: MutableStateFlow<Weather> = MutableStateFlow(Weather())
     val weather: StateFlow<Weather> get() = _weather
 
-    fun fetchWeather(lat: Float, long: Float) {
+    fun fetchWeather(lat: Double, long: Double) {
         val api = retrofit.create(ApiInterface::class.java)
+        Log.d("Error2", "fetchWeather: ${lat} $long")
         viewModelScope.launch {
             val response = api.fetchWeather(Location(lat, long))
             response.enqueue(object : Callback<Weather> {

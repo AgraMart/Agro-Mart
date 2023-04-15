@@ -1,114 +1,98 @@
 package com.example.agromart.view.screen
 
-import android.widget.TextView
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.agromart.R
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.navigation.NavHostController
+import com.example.agromart.navigation.AgroMartScreen
+import com.example.agromart.ui.theme.Dark_Green
+import com.example.agromart.ui.theme.Green
 
 @Composable
-fun BuySellScreen(){
+fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier
+            .padding(20.dp)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Choose your Domain", style = TextStyle(
-            fontSize = 40.sp,
-            fontFamily = FontFamily.Serif,
-            textAlign = TextAlign.Center
-        ))
+        Text(
+            text = "Choose your Domain",
+            style = MaterialTheme.typography.titleLarge.copy(color = Green)
+        )
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = { },
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Blue,
-                    contentColor = Color.White
-                )
-            ) {
-                var contentAlignment = Alignment.Center
-                Image(
-                    painter = painterResource(id = R.drawable.avatar),
+        Button(
+            onClick = { },
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Dark_Green,
+                contentColor = Color.White
+            )
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Rounded.Person,
                     contentDescription = "My Image",
-                    modifier = Modifier.clip(CircleShape).height(30.dp).padding(20.dp, 0.dp)
-                );
+                )
+
                 Text(
                     text = "Seller",
-                    fontSize = 30.sp
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = { },
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Blue,
-                    contentColor = Color.White
-                ),
-            ) {
-                var contentAlignment = Alignment.Center
-                Image(
-                    painter = painterResource(id = R.drawable.avatar),
+        Button(
+            onClick = { navHostController.navigate(AgroMartScreen.BUYER_ITEM_LIST_SCREEN.name) },
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Dark_Green,
+                contentColor = Color.White
+            ),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Rounded.Person,
                     contentDescription = "My Image",
-                    modifier = Modifier.clip(CircleShape).height(30.dp).padding(20.dp, 0.dp)
-                );
+                )
                 Text(
                     text = "Buyer",
-                    fontSize = 30.sp
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
@@ -116,11 +100,4 @@ fun BuySellScreen(){
         Spacer(modifier = Modifier.height(20.dp))
 
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun BuySellScreenPreview(){
-    BuySellScreen()
 }

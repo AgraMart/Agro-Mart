@@ -53,14 +53,14 @@ fun AccountCreated(){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Image(
-            painter = painterResource(id = R.drawable.tick),
-            contentDescription = "My Image",
-            modifier = Modifier
-                .clip(CircleShape)
-                .height(200.dp)
-                .padding(0.dp, 50.dp),
-        );
+//        Image(
+//            painter = painterResource(id = R.drawable.tick),
+//            contentDescription = "My Image",
+//            modifier = Modifier
+//                .clip(CircleShape)
+//                .height(200.dp)
+//                .padding(0.dp, 50.dp),
+//        );
         Text(
             text = "Account Created Successfully !! \n\n We hope you enjoy our Services",
             fontSize = 20.sp,

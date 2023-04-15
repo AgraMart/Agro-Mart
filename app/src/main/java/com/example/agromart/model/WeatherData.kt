@@ -5,8 +5,8 @@ data class Weather(
 )
 
 data class Location(
-    val lat:Float=0.0f,
-    val long:Float=0.0f
+    val lat: Double =0.0,
+    val long: Double =0.0
 )
 
 data class WeatherData(
