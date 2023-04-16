@@ -1,5 +1,6 @@
 package com.example.agromart.view.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -214,26 +215,28 @@ fun BuyerItemListScreen(
             }
             if (seedsButton)
                 items(itemList.data.filter { it.productType == "Seeds" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate("${AgroMartScreen.BUYING_SCREEN.name}/${it._id}") }
                 }
             if (gearsButton) {
                 items(itemList.data.filter { it.productType == "Gear" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate("${AgroMartScreen.BUYING_SCREEN.name}/${it._id}") }
                 }
             }
             if (fertillizerButton) {
                 items(itemList.data.filter { it.productType == "fertillizer" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate("${AgroMartScreen.BUYING_SCREEN.name}/${it._id}") }
                 }
             }
             if (toolsButton) {
                 items(itemList.data.filter { it.productType == "tools" }) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                    AgroItem(it) { navHostController.navigate("${AgroMartScreen.BUYING_SCREEN.name}/${it._id}") }
                 }
             }
             if (allButton) {
                 items(itemList.data) {
-                    AgroItem(it) { navHostController.navigate(AgroMartScreen.BUYING_SCREEN.name) }
+                    Log.d("hey", "BuyerItemListScreen: ${it}")
+
+                    AgroItem(it) { navHostController.navigate("${AgroMartScreen.BUYING_SCREEN.name}/${it._id}") }
                 }
             }
         }

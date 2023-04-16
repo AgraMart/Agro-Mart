@@ -7,6 +7,7 @@ data class UserRequest(
     val aadhar:String="",
     val dob:String="",
     val userType:String="",
+    val address:String="",
 )
 
 data class DataRe(

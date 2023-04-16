@@ -114,6 +114,10 @@ fun MainScreen(
             override fun onLocationResult(p0: LocationResult) {
                 for (lo in p0.locations) {
                     currentLocation = Location(lo.latitude, lo.longitude)
+                    val pref =
+                        context.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
+                    pref.edit().putFloat("lat", lo.latitude.toFloat()).apply()
+                    pref.edit().putFloat("long", lo.longitude.toFloat()).apply()
                 }
             }
         }
@@ -134,7 +138,7 @@ fun MainScreen(
 
     Scaffold(topBar = {
         TopAppBar(title = { }, navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navHostController.navigate(AgroMartScreen.DELIVERY_AGENT_SCREEN.name) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.round_dashboard_24),
                     tint = com.example.agromart.ui.theme.Green,
@@ -234,7 +238,8 @@ fun MainScreen(
                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
                         modifier = modifier
                             .height(180.dp)
-                            .padding(end = 1.dp, start = 20.dp, bottom = 1.dp)
+                            .padding(end = 1.dp, start = 20.dp, bottom = 1.dp),
+                        onClick = { navHostController.navigate(AgroMartScreen.MY_FARM.name) }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,

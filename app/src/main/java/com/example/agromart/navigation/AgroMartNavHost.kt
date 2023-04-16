@@ -20,9 +20,12 @@ import com.example.agromart.view.screen.ListOfProd
 import com.example.agromart.view.screen.LoginScreen
 import com.example.agromart.view.screen.MainScreen
 import com.example.agromart.view.screen.NearbySellerScreen
+import com.example.agromart.view.screen.OrderScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreen
 import com.example.agromart.view.screen.ProductDescriptionSellerScreenSecond
 import com.example.agromart.view.screen.ProfileScreen
+import com.example.agromart.view.screen.SalesPageScreen
+import com.example.agromart.view.screen.SellerProductView
 import com.example.agromart.view.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -74,8 +77,19 @@ fun AgroMartNavHost(
         composable(route = AgroMartScreen.NEARBY_SELLER_SCREEN.name) {
             NearbySellerScreen(modifier = modifier, navHostController = navHostController)
         }
-        composable(route = AgroMartScreen.DELIVERY_AGENT_SCREEN.name) {
-            DeliveryAgentTrackingScreen(modifier = modifier, navHostController = navHostController)
+        composable(
+            route = "${AgroMartScreen.DELIVERY_AGENT_SCREEN.name}/{seller_id}/{buyer_id}",
+            arguments = listOf(
+                navArgument("seller_id") { type = NavType.StringType },
+                navArgument("buyer_id") { type = NavType.StringType },
+            )
+        ) {
+            DeliveryAgentTrackingScreen(
+                modifier = modifier,
+                it.arguments?.getString("seller_id")!!,
+                it.arguments?.getString("buyer_id")!!,
+                navHostController = navHostController
+            )
         }
         composable(route = AgroMartScreen.CHAT_BOT_SCREEN.name) {
             ChatbotScreen(modifier = modifier, navHostController = navHostController)
@@ -98,8 +112,23 @@ fun AgroMartNavHost(
         composable(route = AgroMartScreen.BLOG_SCREEN.name) {
             BlogPage(modifier = modifier, navHostController = navHostController)
         }
-        composable(route = AgroMartScreen.BUYING_SCREEN.name) {
-            BuyingScreen(modifier = modifier, navHostController = navHostController)
+        composable(route = AgroMartScreen.MY_FARM.name) {
+            OrderScreen(modifier = modifier, navHostController = navHostController)
+        }
+        composable(route = AgroMartScreen.SALES_PAGE.name) {
+            SalesPageScreen(modifier = modifier, navHostController = navHostController)
+        }
+        composable(route = AgroMartScreen.SELLER_PRODUCT_VIEW.name) {
+            SellerProductView(modifier = modifier, navHostController = navHostController)
+        }
+        composable(
+            route = "${AgroMartScreen.BUYING_SCREEN.name}/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) {
+            BuyingScreen(
+                modifier = modifier, navHostController = navHostController,
+                it.arguments?.getString("id")!!
+            )
         }
     }
 }

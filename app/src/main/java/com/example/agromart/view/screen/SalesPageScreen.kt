@@ -1,21 +1,18 @@
 package com.example.agromart.view.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,25 +23,35 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.agromart.R
-import com.example.agromart.navigation.AgroMartScreen
-import com.example.agromart.ui.theme.App_Gradient
-import com.example.agromart.view.component.AgroItem
+import com.example.agromart.model.order.DataResponse
+import com.example.agromart.viewmodel.SalesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SalesPageScreen(modifier: Modifier, navHostController: NavHostController) {
+fun SalesPageScreen(
+    modifier: Modifier,
+    navHostController: NavHostController,
+    viewModel: SalesViewModel = hiltViewModel()
+) {
+    val sales by viewModel.mySalesResponse.collectAsState()
+    LaunchedEffect(key1 = sales, block = {
+        viewModel.getSales()
+    })
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -78,15 +85,15 @@ fun SalesPageScreen(modifier: Modifier, navHostController: NavHostController) {
             })
     }) {
         LazyColumn(modifier.padding(it)) {
-            items(5) {
-                SalesPageCard { navHostController.navigate(AgroMartScreen.SALES_PAGE_CARD.name) }
+            items(sales.data) {
+                SalesPageCard(it)
             }
         }
     }
 }
 
 @Composable
-fun SalesPageCard(onPlaceClick: () -> Unit) {
+fun SalesPageCard(dataResponse: DataResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,19 +118,19 @@ fun SalesPageCard(onPlaceClick: () -> Unit) {
                         .padding(end = 20.dp)
                 ) {
                     Text(
-                        "Seed",
+                        dataResponse.itemId.name,
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
                     )
                 }
                 Row {
                     Column {
                         Text("Quantity")
-                        Text("120")
+                        Text(dataResponse.quantity.toString())
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text("Price")
-                        Text("120")
+                        Text(dataResponse.price.toString())
                     }
                 }
             }
@@ -134,7 +141,8 @@ fun SalesPageCard(onPlaceClick: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp, 5.dp))
+                .padding(20.dp, 5.dp)
+        )
 
         {
             Column {
@@ -146,7 +154,7 @@ fun SalesPageCard(onPlaceClick: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically)
                 {
                     Text("Date of Sale : ")
-                    Text("")
+                    Text(dataResponse.createdAt)
                 }
             }
         }
@@ -156,7 +164,7 @@ fun SalesPageCard(onPlaceClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun SalesPageScreenPreview(){
+fun SalesPageScreenPreview() {
     SalesPageScreen(Modifier, rememberNavController())
 }
 

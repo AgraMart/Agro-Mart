@@ -7,6 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiInterface {
-    @POST("currentWeather0")
+    @POST("currentWeather")
     fun fetchWeather(@Body loaction: Location):Call<Weather>
 }

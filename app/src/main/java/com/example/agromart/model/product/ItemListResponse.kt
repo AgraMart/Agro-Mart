@@ -6,7 +6,7 @@ data class ItemListResponse(
 )
 
 data class Datum(
-    val id: String = "",
+    val _id: String = "",
     val name: String = "",
     val quantity: Long = 0,
     val mfd: String = "",
@@ -17,5 +17,5 @@ data class Datum(
     val createdAt: String = "",
     val updatedAt: String = "",
     val v: Long = 0,
-    val sellerId: String? = null
+    val sellerId: String = ""
 )

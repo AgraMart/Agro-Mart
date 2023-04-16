@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Green
 import com.example.agromart.viewmodel.ProductViewModel
@@ -68,9 +69,13 @@ fun ProductDescriptionSellerScreenSecond(
     categoryType: String,
     viewModel: ProductViewModel = hiltViewModel()
 ) {
+    val added by viewModel.added.collectAsState()
     val productRequest by viewModel.productRequest.collectAsState()
     var showDatePicker by remember {
         mutableStateOf(false)
+    }
+    if(added){
+        navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)
     }
     LaunchedEffect(key1 = Unit, block = {
         viewModel.onProductRequestChanged(productRequest.copy(productType = categoryType))

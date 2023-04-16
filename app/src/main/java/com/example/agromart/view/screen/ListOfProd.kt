@@ -40,25 +40,11 @@ fun ListOfProd(modifier: Modifier, navHostController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
-                Row(
-                    modifier = modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.store),
-                        contentDescription = null,
-                        modifier
-                            .scale(2f)
-                            .size(15.dp)
-                    )
-                    Spacer(modifier = modifier.width(20.dp))
-                    Text(
-                        text = "Product Catalog",
-                        color = Color.Black,
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                }
+                Text(
+                    text = "Product Catalog",
+                    color = Color.Black,
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                )
             },
             navigationIcon = {
                 IconButton(onClick = { navHostController.popBackStack() }) {
@@ -72,7 +58,7 @@ fun ListOfProd(modifier: Modifier, navHostController: NavHostController) {
     {
         LazyColumn(modifier.padding(it)) {
             items(5) {
-                EditCard { navHostController.navigate(AgroMartScreen.EDIT_CARD.name) }
+                EditCard { navHostController.navigate(AgroMartScreen.SELLER_PRODUCT_VIEW.name) }
             }
         }
     }
@@ -81,6 +67,6 @@ fun ListOfProd(modifier: Modifier, navHostController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-fun ListOfProdPreview(){
+fun ListOfProdPreview() {
     ListOfProd(Modifier, rememberNavController())
 }

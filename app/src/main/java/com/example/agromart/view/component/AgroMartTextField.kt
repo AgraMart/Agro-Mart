@@ -19,7 +19,9 @@ fun AgroMartTextField(
     modifier: Modifier=Modifier,
     placeHolderText: String,
     isNumber: Boolean=false,
-    onValueChange: (String) -> Unit
+    enabled:Boolean=true,
+    onValueChange: (String) -> Unit,
+
 ) {
     OutlinedTextField(
         modifier = modifier
@@ -27,6 +29,7 @@ fun AgroMartTextField(
             .padding(10.dp),
         value = value,
         label = { Text(placeHolderText) },
+        enabled=enabled,
         onValueChange = onValueChange,
         placeholder = { Text(placeHolderText) },
         keyboardOptions = if (isNumber) (KeyboardOptions(keyboardType = KeyboardType.Number)) else (KeyboardOptions()),

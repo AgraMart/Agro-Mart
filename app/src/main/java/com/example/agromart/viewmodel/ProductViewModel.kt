@@ -1,5 +1,7 @@
 package com.example.agromart.viewmodel
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +21,7 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(val retrofit: Retrofit) : ViewModel() {
+class ProductViewModel @Inject constructor(val retrofit: Retrofit,val appContext:Application) : ViewModel() {
     private val _productRequest: MutableStateFlow<ProductRequest> = MutableStateFlow(
         ProductRequest()
     )
@@ -30,10 +32,36 @@ class ProductViewModel @Inject constructor(val retrofit: Retrofit) : ViewModel()
     )
     val productResponse: StateFlow<ProductResponse> get() = _productResponse
 
+    private val _added: MutableStateFlow<Boolean> = MutableStateFlow(
+        false
+    )
+    val added: StateFlow<Boolean> get() = _added
+
     fun addProduct() {
         val api = retrofit.create(CrudApiInterface::class.java)
         viewModelScope.launch {
+            val pref =
+                appContext.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
+            val response = api.addProduct(productRequest.value,getHeaderMap(pref.getString("access_token", "")!!))
+            response.enqueue(object : Callback<ProductResponse> {
+                override fun onResponse(
+                    call: Call<ProductResponse>,
+                    response: Response<ProductResponse>
+                ) {
+                    _productResponse.value = response.body() ?: ProductResponse()
+                    _added.value=true
+                }
 
+                override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+                    Log.d("Error", "fetchWeather: ${t.message}")
+                }
+            })
+        }
+    }
+
+    fun mySales(){
+        val api = retrofit.create(CrudApiInterface::class.java)
+        viewModelScope.launch {
             val response = api.addProduct(productRequest.value,getHeaderMap(""))
             response.enqueue(object : Callback<ProductResponse> {
                 override fun onResponse(

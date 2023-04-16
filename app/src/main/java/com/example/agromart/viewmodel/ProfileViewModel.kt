@@ -41,7 +41,10 @@ class ProfileViewModel @Inject constructor(val retrofit: Retrofit, val appContex
             val pref =
                 appContext.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
             val response =
-                api.editUser(DataRe(userDetailRequest.value), getHeaderMap(pref.getString("access_token", "")!!))
+                api.editUser(
+                    DataRe(userDetailRequest.value),
+                    getHeaderMap(pref.getString("access_token", "")!!)
+                )
             response.enqueue(object : Callback<UserDetailResponse> {
                 override fun onResponse(
                     call: Call<UserDetailResponse>,
@@ -67,18 +70,19 @@ class ProfileViewModel @Inject constructor(val retrofit: Retrofit, val appContex
         _userDetailRequest.value = userRequest
     }
 
-    fun getData(){
+    fun getData() {
         val api = retrofit.create(CrudApiInterface::class.java)
         viewModelScope.launch {
             val pref =
                 appContext.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
             val response =
-                api.editUser(DataRe(userDetailRequest.value), getHeaderMap(pref.getString("access_token", "")!!))
+                api.getUserProfile(getHeaderMap(pref.getString("access_token", "")!!))
             response.enqueue(object : Callback<UserDetailResponse> {
                 override fun onResponse(
                     call: Call<UserDetailResponse>,
                     response: Response<UserDetailResponse>
                 ) {
+
                     _userDetailResponse.value = response.body() ?: UserDetailResponse()
                 }
 

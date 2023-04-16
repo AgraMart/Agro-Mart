@@ -1,3 +1,5 @@
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
@@ -23,6 +26,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,6 +46,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.example.agromart.R
 import com.example.agromart.ui.theme.Green
 import com.example.agromart.viewmodel.BlogViewModel
@@ -50,6 +61,10 @@ fun BlogPage(
     navHostController: NavController,
     viewModel: BlogViewModel = hiltViewModel()
 ) {
+    val news by viewModel.newsResponse.collectAsState()
+    LaunchedEffect(key1 = news, block = {
+        viewModel.getNews()
+    })
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -80,11 +95,12 @@ fun BlogPage(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(vertical = 8.dp)
             ) {
-                items(10) { index ->
+                items(news.data) {
                     BlogPost(
-                        title = "Blog Post $index",
-                        content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        imageUrl = "https://picsum.photos/200/300"
+                        title = "${it.title}",
+                        content = it.summary,
+                        url = it.link,
+                        media = it.media
                     )
                 }
             }
@@ -93,9 +109,11 @@ fun BlogPage(
 }
 
 @Composable
-fun BlogPost(title: String, content: String, imageUrl: String) {
+fun BlogPost(title: String, content: String, url: String, media: String) {
     var expanded by remember { mutableStateOf(false) }
     val toggleExpansion: () -> Unit = { expanded = !expanded }
+    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
@@ -109,13 +127,14 @@ fun BlogPost(title: String, content: String, imageUrl: String) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        /*Image(
-            painter = rememberImagePainter(data = imageUrl),
+        Image(
+            painter = rememberAsyncImagePainter(model = media),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
-        )*/
+                .height(200.dp),
+            contentScale = ContentScale.FillBounds
+        )
 
         Text(
             text = if (expanded) content else content.take(100) + "...",
@@ -131,7 +150,7 @@ fun BlogPost(title: String, content: String, imageUrl: String) {
             ) {
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
-                    onClick = toggleExpansion,
+                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) },
                     modifier = Modifier.padding(top = 8.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Green),
                     // Use ButtonDefaults to get default button colors and set the backgroundColor to green

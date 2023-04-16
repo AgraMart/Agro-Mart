@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.ui.theme.App_Gradient
 import com.example.agromart.ui.theme.Green
 import com.example.agromart.viewmodel.ProductViewModel
@@ -64,6 +65,7 @@ fun ProductDescriptionSellerScreen(
     viewModel: ProductViewModel = hiltViewModel()
 ) {
     val productRequest by viewModel.productRequest.collectAsState()
+    val added by viewModel.added.collectAsState()
     var showDatePickerForExpiry by remember {
         mutableStateOf(false)
     }
@@ -74,6 +76,10 @@ fun ProductDescriptionSellerScreen(
         viewModel.onProductRequestChanged(productRequest.copy(productType = categoryType ?: ""))
     })
     val datePickerState = rememberDatePickerState()
+
+    if(added){
+        navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)
+    }
     Scaffold(topBar = {
         TopAppBar(title = { }, navigationIcon = {
             IconButton(onClick = { navHostController.popBackStack() }) {
@@ -197,6 +203,7 @@ fun ProductDescriptionSellerScreen(
                     focusedIndicatorColor = Green,
                     cursorColor = Green
                 ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text("Price (INR)") }
             )
 
@@ -205,7 +212,7 @@ fun ProductDescriptionSellerScreen(
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(
                     onClick = {
-
+                        viewModel.addProduct()
                     },
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
