@@ -59,12 +59,13 @@ Our E-commerce Application provides a modern and convenient way for buyers and s
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ##Demo
+
 ![WhatsApp Image 2023-04-16 at 23 37 58](https://user-images.githubusercontent.com/96692056/232332945-c165ce30-0d43-47ee-be57-928115cdebda.jpg)
 
 ![WhatsApp Image 2023-04-16 at 23 38 36](https://user-images.githubusercontent.com/96692056/232332982-78662573-08c7-418b-bf42-5565b24ed596.jpg)
 
-![Uploading WhatsApp Image 2023-04-16![icon](https://user-images.githubusercontent.com/96692056/232333039-84055e5f-0975-4ee4-8b39-92130c0740fc.jpg)
- at 23.37.35.jpg…]()
+![WhatsApp Image 2023-04-16 at 23 37 35](https://user-images.githubusercontent.com/96692056/232333087-2a4ab9df-c0d4-49b3-9d3e-60cbc597b9a3.jpg)
+
 
 ![WhatsApp Image 2023-04-16 at 23 39 22](https://user-images.githubusercontent.com/96692056/232333046-03699bb3-ab66-49cf-877b-ca58377c87f2.jpg)
 
