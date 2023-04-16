@@ -71,10 +71,11 @@ fun ProductDescriptionSellerScreenSecond(
 ) {
     val added by viewModel.added.collectAsState()
     val productRequest by viewModel.productRequest.collectAsState()
-    var showDatePicker by remember {
+    var showDatePickerForMfd by remember {
         mutableStateOf(false)
     }
     if(added){
+        viewModel.onAddedChanges(false)
         navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)
     }
     LaunchedEffect(key1 = Unit, block = {
@@ -150,7 +151,7 @@ fun ProductDescriptionSellerScreenSecond(
                 label = { Text("MFD") },
                 trailingIcon = {
                     IconButton(onClick = {
-                        showDatePicker = !showDatePicker
+                        showDatePickerForMfd = !showDatePickerForMfd
                     }) {
                         Icon(
                             imageVector = Icons.Outlined.CalendarToday,
@@ -184,51 +185,13 @@ fun ProductDescriptionSellerScreenSecond(
                 label = { Text("Price (INR)") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
-        }
-    }
-    if (showDatePicker) {
-        DatePickerDialog(onDismissRequest = { showDatePicker = !showDatePicker }, confirmButton = {
-            Button(
-                onClick = {
-                    val formatter = SimpleDateFormat("dd/MM/yyyy")
-                    viewModel.onProductRequestChanged(
-                        productRequest.copy(
-                            mfd = formatter.format(
-                                Date(datePickerState.selectedDateMillis!!)
-                            )
-                        )
-                    )
-                    showDatePicker = !showDatePicker
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = Green)
-            ) {
-                Text("Select")
-            }
-        }, dismissButton = {
-            Button(
-                onClick = { showDatePicker = !showDatePicker },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent,
-                    contentColor = Color.Black
-                )
-            ) {
-                Text("Cancel")
-            }
-        }) {
-            DatePicker(
-                state = datePickerState,
-                colors = DatePickerDefaults.colors(
-                    selectedDayContainerColor = Green,
-                    todayDateBorderColor = Green
-                )
-            )
 
             Spacer(modifier = Modifier.height(50.dp));
 
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(
                     onClick = {
-
+                        viewModel.addProduct()
                     },
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
@@ -242,6 +205,47 @@ fun ProductDescriptionSellerScreenSecond(
                     )
                 }
             }
+        }
+    }
+    if (showDatePickerForMfd) {
+        DatePickerDialog(
+            onDismissRequest = { showDatePickerForMfd = !showDatePickerForMfd },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val formatter = SimpleDateFormat("dd/MM/yyyy")
+                        viewModel.onProductRequestChanged(
+                            productRequest.copy(
+                                mfd = formatter.format(
+                                    Date(datePickerState.selectedDateMillis!!)
+                                )
+                            )
+                        )
+                        showDatePickerForMfd = !showDatePickerForMfd
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Green)
+                ) {
+                    Text("Select")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = { showDatePickerForMfd = !showDatePickerForMfd },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = Color.Black
+                    )
+                ) {
+                    Text("Cancel")
+                }
+            }) {
+            DatePicker(
+                state = datePickerState,
+                colors = DatePickerDefaults.colors(
+                    selectedDayContainerColor = Green,
+                    todayDateBorderColor = Green
+                )
+            )
         }
     }
 }

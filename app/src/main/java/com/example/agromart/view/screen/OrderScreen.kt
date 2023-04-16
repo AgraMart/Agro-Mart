@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -101,7 +102,7 @@ fun OrderScreen(
         AlertDialog(onDismissRequest = { showDialog = false }) {
             val byteArray = Base64.decode(selectedQr.split(",")[1], Base64.DEFAULT)
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            Image(bitmap = bitmap.asImageBitmap(), contentDescription = null)
+            Image(bitmap = bitmap.asImageBitmap(), contentDescription = null,modifier.size(300.dp))
         }
     }
 }

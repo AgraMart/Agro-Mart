@@ -78,6 +78,7 @@ fun ProductDescriptionSellerScreen(
     val datePickerState = rememberDatePickerState()
 
     if(added){
+        viewModel.onAddedChanges(false)
         navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)
     }
     Scaffold(topBar = {

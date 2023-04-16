@@ -87,4 +87,8 @@ class ProductViewModel @Inject constructor(val retrofit: Retrofit,val appContext
         headerMap["Authorization"] = "Bearer $access_token"
         return headerMap
     }
+
+    fun onAddedChanges(added:Boolean){
+        _added.value=added
+    }
 }

@@ -33,6 +33,7 @@ import com.example.agromart.R
 import com.example.agromart.navigation.AgroMartScreen
 import com.example.agromart.view.component.AgroItem
 import com.example.agromart.view.component.EditCard
+import com.example.agromart.view.component.EditCard2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,8 +58,12 @@ fun ListOfProd(modifier: Modifier, navHostController: NavHostController) {
     })
     {
         LazyColumn(modifier.padding(it)) {
-            items(5) {
+            items(2) {
                 EditCard { navHostController.navigate(AgroMartScreen.SELLER_PRODUCT_VIEW.name) }
+            }
+
+            items(2) {
+                EditCard2 { navHostController.navigate(AgroMartScreen.SELLER_PRODUCT_VIEW.name) }
             }
         }
     }

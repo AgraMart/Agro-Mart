@@ -68,7 +68,7 @@ fun DeliveryAgentTrackingScreen(
             response.data?.polyline?.points ?: ""
         )
         val singapore =
-            LatLng(list.first().latitude, list.first().longitude)
+            LatLng(pref.getFloat("lat", 0f).toDouble(), pref.getFloat("long", 0f).toDouble())
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(singapore, 10f)
         }

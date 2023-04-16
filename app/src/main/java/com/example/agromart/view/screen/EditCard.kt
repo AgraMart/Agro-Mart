@@ -92,3 +92,62 @@ fun EditCard(onPlaceClick: () -> Unit) {
         }
     }
 }
+
+
+@Composable
+fun EditCard2(onPlaceClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.sprout),
+                contentDescription = null,
+                modifier = Modifier
+                    .scale(0.2f)
+                    .size(150.dp)
+            )
+            Column {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 20.dp)
+                ) {
+                    Text(
+                        "Rice",
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
+                    )
+                    IconButton(onClick = onPlaceClick) {
+                        Icon(
+                            Icons.Rounded.Create,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier
+                                .background(
+                                    App_Gradient
+                                )
+                                .padding(10.dp)
+                        )
+                    }
+                }
+                Row {
+                    Column {
+                        Text("Quantity")
+                        Text("10")
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Column {
+                        Text("Price")
+                        Text("130")
+                    }
+                }
+            }
+        }
+    }
+}

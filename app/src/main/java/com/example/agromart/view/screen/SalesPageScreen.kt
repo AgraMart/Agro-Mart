@@ -40,6 +40,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.agromart.R
 import com.example.agromart.model.order.DataResponse
 import com.example.agromart.viewmodel.SalesViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,13 +150,11 @@ fun SalesPageCard(dataResponse: DataResponse) {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically)
                 {
-                    Text("Customer Name : ")
-                    Text("")
-                }
-                Row(verticalAlignment = Alignment.CenterVertically)
-                {
+                    val date: Date =
+                        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dataResponse.createdAt)
+                    val formattedDate: String = SimpleDateFormat("dd/MM/yyyy").format(date)
                     Text("Date of Sale : ")
-                    Text(dataResponse.createdAt)
+                    Text(formattedDate)
                 }
             }
         }
