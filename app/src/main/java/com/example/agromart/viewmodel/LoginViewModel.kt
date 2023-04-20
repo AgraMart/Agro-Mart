@@ -44,6 +44,8 @@ class LoginViewModel @Inject constructor(
 
     private val _hash: MutableStateFlow<String> = MutableStateFlow("")
     val hash: StateFlow<String> get() = _hash
+
+
     fun sendOTP() {
         val api = retrofit.create(AuthApiInterface::class.java)
         viewModelScope.launch {
@@ -96,6 +98,7 @@ class LoginViewModel @Inject constructor(
                         (response.body() ?: PhoneAuthVerifyResponse()).let {
                             pref.edit().apply{
                                 putString("access_token",it.token)
+                                putBoolean("isLogged",true)
                             }.apply()
                         }
                         _isLogged.value=true
@@ -107,5 +110,9 @@ class LoginViewModel @Inject constructor(
                 })
             }
         }
+    }
+
+    fun onLoggedChanges(isLogged:Boolean){
+        _isLogged.value=isLogged
     }
 }

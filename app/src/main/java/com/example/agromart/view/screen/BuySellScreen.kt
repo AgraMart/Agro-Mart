@@ -1,5 +1,6 @@
 package com.example.agromart.view.screen
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import com.example.agromart.R
@@ -44,6 +46,7 @@ import com.example.agromart.ui.theme.Green
 
 @Composable
 fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
+    val context= LocalContext.current
     Column(
         modifier = Modifier
             .padding(20.dp)
@@ -91,7 +94,14 @@ fun BuySellScreen(modifier: Modifier, navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Box(modifier = Modifier
-            .clickable { navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name) }
+            .clickable {
+                val pref = context.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
+                if (!pref.getBoolean("isLogged", false)) {
+                    navHostController.navigate(AgroMartScreen.LOGIN_SCREEN.name)
+                } else {
+                    navHostController.navigate(AgroMartScreen.CATEGORY_SCREEN.name)
+                }
+            }
             .height(250.dp)
             .width(250.dp)
             .padding(5.dp)

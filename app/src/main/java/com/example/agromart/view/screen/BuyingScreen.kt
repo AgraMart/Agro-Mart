@@ -193,20 +193,20 @@ fun BuyingScreen(
         Button(
             onClick = {
                 val pref = context.getSharedPreferences("my_shared", Context.MODE_PRIVATE)
-//                if (true) {
-//                    navHostController.navigate(AgroMartScreen.LOGIN_SCREEN.name)
-//                } else {
-                viewModel.onOrderRequestChanged(
-                    order.copy(
-                        order.data.copy(
-                            price = ((dat.price) * (order.data.quantity)),
-                            sellerId = dat.sellerId,
-                            itemId = dat._id
+                if (!pref.getBoolean("isLogged", false)) {
+                    navHostController.navigate(AgroMartScreen.LOGIN_SCREEN.name)
+                } else {
+                    viewModel.onOrderRequestChanged(
+                        order.copy(
+                            order.data.copy(
+                                price = ((dat.price) * (order.data.quantity)),
+                                sellerId = dat.sellerId,
+                                itemId = dat._id
+                            )
                         )
                     )
-                )
-                viewModel.placeOrder()
-//                }
+                    viewModel.placeOrder()
+                }
             },
             shape = RoundedCornerShape(50.dp),
             modifier = Modifier

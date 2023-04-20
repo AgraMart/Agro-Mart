@@ -69,7 +69,8 @@ fun LoginScreen(
     var isdialog by remember { mutableStateOf(false) }
     if (isLogged) {
         isdialog = false
-        navHostController.navigate(AgroMartScreen.PROFILE_SCREEN.name)
+        viewModel.onLoggedChanges(false)
+        navHostController.navigate(AgroMartScreen.BUY_SELL_SCREEN.name)
     }
     Scaffold { it ->
         Column(
