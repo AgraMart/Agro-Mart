@@ -50,9 +50,12 @@ Our E-commerce Application provides a modern and convenient way for buyers and s
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - UI toolkit for building declarative UI
 - [Android Studio](https://developer.android.com/studio) - Integrated Development Environment (IDE)
 
-## Authors
+## Team
 
-- [Your Name](https://github.com/yourusername) - Initial work
+- [Chandra Mauli Sharma](https://github.com/Chandra-Mauli-Sharma)
+- [Shivansh Joshi](https://github.com/sniperzee2)
+- [Nil Mani](https://github.com/nilmani9430)
+- [Jaskirat Singh](https://github.com/sjaskirat461)
 
 ## License
 
